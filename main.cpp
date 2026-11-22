@@ -385,13 +385,13 @@ int main() {
     // 2. Sinh khóa riêng của Alice và Bob
     BigInt512 a = generate_private_key(p, prng);
     BigInt512 b = generate_private_key(p, prng);
-
+/*
     std::cout << "[+] Khoa rieng Alice (a):   "; a.print_hex(); std::cout << "\n";
     std::cout << "[+] Khoa rieng Bob (b):     "; b.print_hex(); std::cout << "\n\n";
-
-    // 3. Tính giá trị công khai (A = g^a mod p, B = g^b mod p)
-    BigInt512 A = modular_exponentiation(g, a, p);
-    BigInt512 B = modular_exponentiation(g, b, p);
+*/
+    // 3. Tính giá trị công khai
+    BigInt512 A = modular_exponentiation(g, a, p);  // A = g^a % p
+    BigInt512 B = modular_exponentiation(g, b, p);  // B = g^b % p
 
     std::cout << "[+] Khoa cong khai Alice (A = g^a mod p): "; A.print_hex(); std::cout << "\n";
     std::cout << "[+] Khoa cong khai Bob   (B = g^b mod p): "; B.print_hex(); std::cout << "\n\n";
@@ -403,9 +403,14 @@ int main() {
     std::cout << "[+] Bi mat chung Alice nhan duoc: "; alice_shared_secret.print_hex(); std::cout << "\n";
     std::cout << "[+] Bi mat chung Bob nhan duoc:   "; bob_shared_secret.print_hex(); std::cout << "\n\n";
 
-    // 5. Xác minh bí mật chung trùng khớp
+    // 5. Hiển thị kết quả và xác minh bí mật trùng khớp
     std::cout << "[=>] Qua trinh tinh toan dung khong? "
               << (alice_shared_secret == bob_shared_secret ? "DUNG (TRUE)" : "SAI (FALSE)") << "\n";
 
     return 0;
 }
+
+/*
+g++ -O3 -std=c++14 main.cpp prng.cpp fips202.c -o main.exe
+.\main.exe
+*/
